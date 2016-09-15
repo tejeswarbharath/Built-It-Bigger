@@ -1,23 +1,24 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Pair;
 import android.view.Menu;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
 import com.example.tejeswar.jokedisplay.JokeActivity;
-import com.example.MyClass;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements OnTaskCompleted {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,13 +41,18 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void launchJokeActivity(View view)
+    @Override
+    public void onTask(String resultJoke)
     {
-        Intent intent = new Intent(this, JokeActivity.class);
-        MyClass jokeSource = new MyClass();
-        String joke = jokeSource.getJoke();
-        intent.putExtra(JokeActivity.JOKE_KEY,joke);
-        startActivity(intent);
+        Log.i("appMain", "AndoidLib");
+        Intent jokeIntent = new Intent(this, JokeActivity.class);
+        jokeIntent.putExtra(JokeActivity.JOKE_KEY, resultJoke);
+        startActivity(jokeIntent);
     }
 
+    public void tellJoke(View view)
+    {
+        EndpointsAsyncTask asyncGetJoke = new EndpointsAsyncTask(MainActivity.this);
+        asyncGetJoke.execute(new Pair<Context, String>(this, ""));
+    }
 }

@@ -1,16 +1,17 @@
 apply plugin: 'com.android.application'
 
+sourceCompatibility = 1.7
+
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.3"
-
     defaultConfig {
         applicationId "com.udacity.gradle.builditbigger"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        sourceCompatibility = 1.7
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -18,7 +19,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        free {
+            applicationId "com.udacity.gradle.builditbigger.free"
+        }
+        paid {
+            applicationId "com.udacity.gradle.builditbigger.paid"
+        }
+    }
 }
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -28,4 +38,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.0.0-beta1'
     compile 'com.google.android.gms:play-services:9.0.1'
     compile project(path: ':backend', configuration: 'android-endpoints')
+    compile 'com.android.support:multidex:1.0.0'
 }

@@ -37,5 +37,4 @@ public class JokeActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
