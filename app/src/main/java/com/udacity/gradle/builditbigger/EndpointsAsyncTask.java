@@ -16,10 +16,12 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
  */
 public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String>
 {
+
         private MyApi myApiService = null;
         private Context context;
         private OnTaskCompleted task;
 
+      //  public EndpointsAsyncTask(){}
 
         public EndpointsAsyncTask(OnTaskCompleted activityContext){
             this.task = activityContext;
@@ -40,7 +42,7 @@ public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, S
                 // end options for devappserver
                 myApiService = builder.build();
             }
-            context = params[0].first;
+            //context = params[0].first;
             try
             {
                 return myApiService.getJoke().execute().getData();
