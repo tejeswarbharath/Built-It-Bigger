@@ -8,8 +8,12 @@ public class EndpointsAsyncTaskTest
 {
     private OnTaskCompleted context;
 
-    EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(context);
-
+    EndpointsAsyncTask asyncTask =new EndpointsAsyncTask(new OnTaskCompleted() {
+        @Override
+        public void onTask(String response) {
+            System.out.println("onTask() called");
+        }
+    });
     @Test
     public void AsyncTaskTest() throws Exception
     {
