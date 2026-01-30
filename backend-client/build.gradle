@@ -1,0 +1,12 @@
+apply plugin: 'java-library'
+
+sourceCompatibility = JavaVersion.VERSION_17
+targetCompatibility = JavaVersion.VERSION_17
+
+dependencies {
+    api('com.google.api-client:google-api-client-android:1.22.0') {
+        exclude group: 'com.google.guava', module: 'guava-jdk5'
+    }
+    api 'com.google.http-client:google-http-client-gson:1.22.0'
+    api 'com.google.guava:guava:31.1-android'
+}

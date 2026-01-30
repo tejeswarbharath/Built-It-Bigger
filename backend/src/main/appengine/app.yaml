@@ -1,0 +1,5 @@
+# App Engine Standard (Java) - replace myApplicationId with your GCP project ID for deploy
+runtime: java17
+
+env_variables:
+  # Optional: add environment variables for your app

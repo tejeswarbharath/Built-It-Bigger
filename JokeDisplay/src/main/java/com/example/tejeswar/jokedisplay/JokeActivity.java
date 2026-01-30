@@ -3,12 +3,12 @@ package com.example.tejeswar.jokedisplay;
 /**
  * Created by tejeswar on 8/28/2016.
  */
-import android.support.v7.app.ActionBarActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class JokeActivity extends ActionBarActivity {
+public class JokeActivity extends AppCompatActivity {
 
     public static String JOKE_KEY = "Joke key";
 

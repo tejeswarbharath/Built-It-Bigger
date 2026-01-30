@@ -3,7 +3,7 @@ package com.udacity.gradle.builditbigger;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Pair;
 import android.view.Menu;
 import android.util.Log;
@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import com.example.tejeswar.jokedisplay.JokeActivity;
 
-public class MainActivity extends ActionBarActivity implements OnTaskCompleted {
+public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
