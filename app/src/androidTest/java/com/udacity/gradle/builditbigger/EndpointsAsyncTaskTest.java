@@ -3,31 +3,26 @@ package com.udacity.gradle.builditbigger;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import java.util.concurrent.TimeUnit;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+import org.junit.runner.RunWith;
 
+@RunWith(AndroidJUnit4.class)
 public class EndpointsAsyncTaskTest
 {
-    private OnTaskCompleted context;
-
-    EndpointsAsyncTask asyncTask =new EndpointsAsyncTask(new OnTaskCompleted() {
-        @Override
-        public void onTask(String response) {
-            System.out.println("onTask() called");
-        }
-    });
     @Test
     public void AsyncTaskTest() throws Exception
     {
+        EndpointsAsyncTask asyncTask = new EndpointsAsyncTask(new OnTaskCompleted() {
+            @Override
+            public void onTask(String response) {
+                // Task completed
+            }
+        });
 
-        String result = asyncTask.execute().get(60, TimeUnit.SECONDS);
-        assertNotNull(result);
-        assertTrue("Test Failed",result.length() > 0);
-    }
-    @org.junit.Test
-    public void testDoInBackground() throws Exception {
-    }
+        // Execute task and wait for result
+        String result = asyncTask.execute().get(30, TimeUnit.SECONDS);
 
-    @org.junit.Test
-    public void testOnPostExecute() throws Exception {
+        assertNotNull("Result should not be null", result);
+        assertTrue("Joke should not be empty", result.length() > 0);
     }
-
 }

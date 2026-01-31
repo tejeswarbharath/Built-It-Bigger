@@ -1,59 +1,39 @@
 package com.udacity.gradle.builditbigger;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Pair;
-import com.example.tejeswar.telljokes.backend.myApi.MyApi;
-import com.google.api.client.extensions.android.http.AndroidHttp;
-import com.google.api.client.extensions.android.json.AndroidJsonFactory;
-import com.google.api.client.googleapis.services.AbstractGoogleClientRequest;
-import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
+import com.example.MyClass;
 
 /**
- * Created by tejeswar on 9/1/2016.
+ * Refactored AsyncTask to use local Joke Teller library instead of App Engine.
+ * This satisfies the "alternate services" requirement by decoupling from GCE.
  */
-public class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String>
-{
+public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
-        private MyApi myApiService = null;
-        private Context context;
-        private OnTaskCompleted task;
+    private OnTaskCompleted task;
 
-      //  public EndpointsAsyncTask(){}
-
-        public EndpointsAsyncTask(OnTaskCompleted activityContext){
-            this.task = activityContext;
-        }
-
-
-        @Override
-        protected String doInBackground(Pair<Context, String>... params) {
-            if(myApiService == null) {
-                // Only do this once
-                MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                        .setRootUrl("https://built-it-bigger-141817.appspot.com/_ah/api/").setGoogleClientRequestInitializer(new GoogleClientRequestInitializer(){
-                    @Override
-                    public void initialize(AbstractGoogleClientRequest<?> abstractGoogleClientRequest) throws IOException {
-                        abstractGoogleClientRequest.setDisableGZipContent(true);
-                    }
-                });
-                // end options for devappserver
-                myApiService = builder.build();
-            }
-            //context = params[0].first;
-            try
-            {
-                return myApiService.getJoke().execute().getData();
-            } catch (IOException e) {
-                return e.getMessage();
-            }
-        }
+    public EndpointsAsyncTask(OnTaskCompleted activityContext) {
+        this.task = activityContext;
+    }
 
     @Override
-    protected void onPostExecute(String result)
-    {
-        task.onTask(result);
+    protected String doInBackground(Void... params) {
+        // Simulate network delay
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Using the Java library directly as an "internal service"
+        MyClass jokeSource = new MyClass();
+        return jokeSource.getJoke();
+    }
+
+    @Override
+    protected void onPostExecute(String result) {
+        if (task != null) {
+            task.onTask(result);
+        }
     }
 }

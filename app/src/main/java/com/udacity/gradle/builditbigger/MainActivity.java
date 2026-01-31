@@ -1,10 +1,8 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Pair;
 import android.view.Menu;
 import android.util.Log;
 import android.view.MenuItem;
@@ -52,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements OnTaskCompleted {
 
     public void tellJoke(View view)
     {
-        EndpointsAsyncTask asyncGetJoke = new EndpointsAsyncTask(MainActivity.this);
-        asyncGetJoke.execute(new Pair<Context, String>(this, ""));
+        // Refactored to match new EndpointsAsyncTask signature
+        EndpointsAsyncTask asyncGetJoke = new EndpointsAsyncTask(this);
+        asyncGetJoke.execute();
     }
 }
